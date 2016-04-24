@@ -1,0 +1,47 @@
+/*Histogram problem using Stack time complexity is O(n);
+
+*/
+#include<iostream>
+#include<stack>
+#define MAX 100000
+using namespace std;
+int getMaxhistogram(int hist[],int n)
+{
+	stack<int> s;
+     int max_area=0;
+     int tp;
+     int area_with_top;
+     int i=0;
+     while(i<n)
+     {
+     	if(s.empty()||hist[s.top()]<=hist[i] )  // initially the  stack is empty then we push the 0 th in the stack 
+     	else
+     	{
+     		tp=s.top();
+     		s.pop();
+     		
+     		area_with_top=hist[tp]*( s.empty() ?i : i-s.top()-1) ;
+     		
+			 if(max_area < area_with_top)    // the maximum is get updated 
+     		     max_area = area_with_top;
+	    }
+    
+	 }
+	 while( !s.empty()) // while(s.empty()==false)
+	 {
+	 	tp=s.top();
+	 	s.pop();
+	 	area_with_top=hist[tp]*(s.empty()?i:i-s.top()-1);
+	 	if(max_area<area_with_top)
+	      max_area=area_with_top;
+	 }
+	 return max_area;
+}
+int main()
+{
+	int t,A[MAX];
+	cin>>t;
+	for(int i=0;i<t;i++) cin>>A[i];
+	cout<<getMaxhistogram(A,t);
+	return 0;	
+}
